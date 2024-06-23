@@ -3,7 +3,6 @@ import { randomUUID } from 'node:crypto';
 import { validateMovie, validatePartialMovie } from './schema/movies.js';
 import cors from 'cors';
 import movies from './movies.json';
-//un endpoint es un path en el que tenemos un recurso
 
 const app = express();
 app.use(json());
@@ -31,7 +30,7 @@ app.use(cors({
 app.get('/',(req,res)=>{
     res.send('Welcome to the Movies Api')
 })
-//obtener todas las peliculas
+
 app.get('/movies', (req, res)=>{
 
     const { genre } = req.query
@@ -44,13 +43,13 @@ app.get('/movies', (req, res)=>{
     res.json(movies)
 });
 
-//obtener pelicula por id
+
 app.get('/movies/:id', (req, res)=>{
     const {id} = req.params;
     const movie = movies.find(movie => movie.id === id)
     if(movie) return res.json(movie)
 
-    res.status(404).send('No se encontró la pelicula')
+    res.status(404).send('the movie was not found')
 });
 
 
@@ -112,6 +111,6 @@ app.delete('/movies/:id', (req,res)=>{
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT,()=>{
-    console.log(`escuchando en el puerto ${PORT}`)
+    console.log(`listening in the port ${PORT}`)
 });
 
